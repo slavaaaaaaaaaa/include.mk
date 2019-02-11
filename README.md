@@ -4,9 +4,14 @@ This is a collection of `make` includes I've put together.
 
 <!-- toc -->
 
+- [Usage](#usage)
 - [Licensing](#licensing)
 
 <!-- tocstop -->
+
+## Usage
+
+An example [`Makefile`](Makefile) shows how to include this repository dynamically in your own. Variables are to be overridden outside of `include.mk`; targets can also be overridden _or_ added to (e.g. `encrypt::` will add to the currently defined target).
 
 ## Licensing
 
