@@ -78,7 +78,7 @@ The following variables are used here:
 
 `make` targets are present to facilitate `helm` operations:
 
-|Command|Required Variables|End User target?Purpose|
+|Command|Required Variables|End User target?|Purpose|
 |-|-|-|
 |`make install`|`RELEASE_NAME`, `VALUES_FILE`|Yes|Installs the specified release|
 |`make upgrade`|`RELEASE_NAME`, `VALUES_FILE`|Yes|Upgrades an existing release|
@@ -96,7 +96,21 @@ The following variables are used here:
 
 #### [Ansible Vault](91-ansible-vault.mk)
 
-TODO
+Facilitates Ansible Vault operations, takes care of the passphrase management.
+
+|Command|Required Variables|End User target?|Purpose|
+|-|-|-|
+|`make vault_encrypt`|`VAULT_VARS_FILE`, `VAULT_PASSWORD_FILE`|Yes|Encrypts `VAULT_VARS_FILE` with passphrase in the file `VAULT_PASSWORD_FILE` (which should be encrypted with the [GnuPG](#gnupg) targets)|
+|`make vault_decrypt`|`VAULT_VARS_FILE`, `VAULT_PASSWORD_FILE`|Yes|Decrypts as above|
+
+The following variables are used here:
+
+|Variable name|Description|
+|-|-|
+|`VAULT_VARS_FILE`|The file you want encrypted|
+|`VAULT_PASSWORD_FILE`|The file containing the vault password|
+
+**Ideally**, you'd set `ENCRYPTABLE=$(VAULT_PASSWORD_FILE)` in your local makefile and keep it encrypted with the [GnuPG](#gnupg) targets.
 
 #### [SSH](92-ssh.mk)
 
