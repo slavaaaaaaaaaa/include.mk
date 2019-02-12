@@ -27,11 +27,15 @@ Of course, you'll need to change the `GITROOT` variable in your `Makefile`s: it'
 
 ## Documentation
 
-Variables listed should be set in `./Makefile`
+Variables listed should be set in a local `./Makefile`
 
 ### Markdown
 
-TODO
+There's only one target here, `make toc`, which uses [`markdown-toc`](https://github.com/smaslennikov/markdown-toc) to generate tables of contents in `README.md`.
+
+- does so with proper indentation to support BitBucket,
+- only builds TOC for `README.md`,
+- inserts the TOC at the comment location: `<!-- toc -->`
 
 ### Bastion host
 
