@@ -31,10 +31,9 @@ Variables listed should be set in a local `./Makefile`
 
 ### Markdown
 
-There's only one target here, `make toc`, which uses [`markdown-toc`](https://github.com/smaslennikov/markdown-toc) to generate tables of contents in `README.md`.
+There's only one target here, `make toc`, which uses [`markdown-toc`](https://github.com/smaslennikov/markdown-toc) to generate tables of contents in a given (`MARKDOWN_FILE` variable) Markdown file.
 
 - does so with proper indentation to support BitBucket,
-- only builds TOC for `README.md`,
 - inserts the TOC at the comment location: `<!-- toc -->`
 
 ### Bastion host

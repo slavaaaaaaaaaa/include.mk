@@ -1,4 +1,6 @@
 .PHONY: toc
 
+MARKDOWN_FILE?=README.md
+
 toc:
-	markdown-toc --indent "    " -i README.md
+	markdown-toc --indent "    " -i $(MARKDOWN_FILE)
