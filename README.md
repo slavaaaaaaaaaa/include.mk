@@ -27,6 +27,8 @@ An example [`Makefile`](Makefile) shows how to include this repository dynamical
 
 Of course, you'll need to change the `GITROOT` variable in your `Makefile`s: it'll likely be the same as the example, but without the trailing `../`.
 
+Feel free to either remove `.git` directory in the acquired `include.mk` or add it as a submodule and follow along for additions and fixes.
+
 ## Documentation
 
 Variables listed should be set in a local `./Makefile`
