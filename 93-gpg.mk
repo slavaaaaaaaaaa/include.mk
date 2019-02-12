@@ -1,5 +1,6 @@
 GPG_KEY?=secret/gpg_key
 GPG_KEY_UID?=
+ENCRYPTABLE?=
 
 define RECIPIENTS
 
