@@ -1,4 +1,4 @@
-VAULT_VARS_FILE?=inventory/group_vars/all
+VAULT_VARS_FILE?=inventory/group_vars/all.yml
 VAULT_PASSWORD_FILE?=secret/vault_password
 
 .PHONY: vault_encrypt vault_decrypt
@@ -12,7 +12,7 @@ vault_decrypt: $(VAULT_VARS_FILE).enc $(VAULT_PASSWORD_FILE)
 	mv $(VAULT_VARS_FILE).enc $(VAULT_VARS_FILE)
 
 $(VAULT_VARS_FILE)%:
-	test -f $@
+	test -f $$(echo $@ | sed -e 's/.o$$//') # please for the love of god someone tell me how to fix this
 
 $(VAULT_PASSWORD_FILE):
 	ENCRYPTABLE=$(VAULT_PASSWORD_FILE) make decrypt
