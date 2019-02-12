@@ -1,5 +1,6 @@
 GPG_KEY?=secret/gpg_key
 GPG_KEY_UID?=
+ENCRYPTABLE?=
 
 define RECIPIENTS
 
@@ -16,12 +17,18 @@ generate-service-gpg-key:
 
 decrypt:: encryptable
 	for i in $(ENCRYPTABLE); do \
-		gpg -o $$i -d $$i.asc; \
+		gpg -o $$i -d $$i.asc &&  \
+		rm $$i.asc; \
 	done
 
 encrypt:: encryptable
 	for i in $(ENCRYPTABLE); do \
-		gpg $(BATCH) -o $$i.asc -ase $(RECIPIENTS) $$i; \
+		test -f $$i && \
+			gpg $(BATCH) -o $$i.asc -ase $(RECIPIENTS) $$i && \
+			rm $$i || \
+			(test -f $$i.asc && \
+				echo "$$i already encrypted" || \
+				echo "$$i doesn't exist!"); \
 	done
 
 reencrypt:
