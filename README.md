@@ -29,7 +29,7 @@ Of course, you'll need to change the `GITROOT` variable in your `Makefile`s: it'
 
 Variables listed should be set in a local `./Makefile`
 
-### Markdown
+### [Markdown](01-markdown.mk)
 
 There's only one target here, `make toc`, which uses [`markdown-toc`](https://github.com/smaslennikov/markdown-toc) to generate tables of contents in a given (`MARKDOWN_FILE` variable) Markdown file.
 
@@ -51,15 +51,15 @@ TODO
 
 TODO
 
-### Kubernetes
+### [Kubernetes](40-kubernetes.mk)
 
 TODO
 
-#### EKS
+#### [EKS](41-eks.mk)
 
 TODO
 
-#### Helm
+#### [Helm](42-helm.mk)
 
 `make` targets are present to facilitate `helm` operations:
 
@@ -75,17 +75,17 @@ The following variables are used here:
 `RELEASE_NAME`: name of the release
 `VALUES_FILE`: which YAML of values to use
 
-### Crypt
+### Crypto Includes
 
-#### Ansible Vault
-
-TODO
-
-#### SSH
+#### [Ansible Vault](91-ansible-vault.mk)
 
 TODO
 
-#### GPG
+#### [SSH](92-ssh.mk)
+
+TODO
+
+#### [GnuPG](93-gpg.mk)
 
 TODO
 
