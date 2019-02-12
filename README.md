@@ -8,13 +8,15 @@ This is a collection of `make` includes I've put together.
 - [Documentation](#documentation)
     * [Markdown](#markdown)
     * [Bastion host](#bastion-host)
+    * [Terraform](#terraform)
+        + [GCP](#gcp)
     * [Kubernetes](#kubernetes)
         + [EKS](#eks)
         + [Helm](#helm)
-    * [Crypt](#crypt)
+    * [Crypto Includes](#crypto-includes)
         + [Ansible Vault](#ansible-vault)
         + [SSH](#ssh)
-        + [GPG](#gpg)
+        + [GnuPG](#gnupg)
 - [Licensing](#licensing)
 
 <!-- tocstop -->
@@ -34,13 +36,13 @@ Variables listed should be set in a local `./Makefile`
 There's only one target here, `make toc`, which uses [`markdown-toc`](https://github.com/smaslennikov/markdown-toc) to generate tables of contents in a given (`MARKDOWN_FILE` variable) Markdown file.
 
 - does so with proper indentation to support BitBucket,
-- inserts the TOC at the comment location: `<!-- toc -->`
+- inserts the TOC at the comment location (`!-- toc --`, surrounded by `<>`. Can't paste it here or there are two places to place a toc!)
 
 ### [Bastion host](20-bastion.mk)
 
 An opinionated target to SSH into an immutable bastion host: `make bastion` will
 
-1. Call [`make decrypt`](#gpg) if the private SSH key (`BASTION_SSH_KEY_FILE` variable) is not already decrypted,
+1. Call [`make decrypt`](#gnupg) if the private SSH key (`BASTION_SSH_KEY_FILE` variable) is not already decrypted,
 2. `ssh` into `$BASTION_HOST` with `$BASTION_USERNAME` and `$BASTION_EXTRA_ARGS` while **ignoring host keys**
 
 ### [Terraform](30-terraform.mk)
