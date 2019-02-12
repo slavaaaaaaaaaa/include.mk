@@ -36,7 +36,18 @@ There's only one target here, `make toc`, which uses [`markdown-toc`](https://gi
 - does so with proper indentation to support BitBucket,
 - inserts the TOC at the comment location: `<!-- toc -->`
 
-### Bastion host
+### [Bastion host](20-bastion.mk)
+
+An opinionated target to SSH into an immutable bastion host: `make bastion` will
+
+1. Call [`make decrypt`](#gpg) if the private SSH key (`BASTION_SSH_KEY_FILE` variable) is not already decrypted,
+2. `ssh` into `$BASTION_HOST` with `$BASTION_USERNAME` and `$BASTION_EXTRA_ARGS` while **ignoring host keys**
+
+### [Terraform](30-terraform.mk)
+
+TODO
+
+#### [GCP](31-gcp.mk)
 
 TODO
 
