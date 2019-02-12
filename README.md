@@ -79,7 +79,7 @@ The following variables are used here:
 `make` targets are present to facilitate `helm` operations:
 
 |Command|Required Variables|End User target?|Purpose|
-|-|-|-|
+|-|-|-|-|
 |`make install`|`RELEASE_NAME`, `VALUES_FILE`|Yes|Installs the specified release|
 |`make upgrade`|`RELEASE_NAME`, `VALUES_FILE`|Yes|Upgrades an existing release|
 |`make delete`|`RELEASE_NAME`|Yes|Deletes an existing release|
