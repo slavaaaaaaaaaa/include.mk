@@ -1,5 +1,8 @@
-GPG_KEY?=secret/gpg_key
+CRYPTO_CHARS?=A-Za-z0-9-_
+
+GPG_KEY_FILE?=secret/gpg_key
 GPG_KEY_UID?=
+
 ENCRYPTABLE?=
 
 define RECIPIENTS
@@ -9,11 +12,11 @@ endef
 .PHONY: generate-secret generate-service-gpg-key decrypt encrypt reencrypt encryptable
 
 generate-secret:
-	tr -cd 'A-Za-z0-9-_' </dev/urandom | head -c 32 && echo
+	tr -cd '$(CRYPTO_CHARS)' </dev/urandom | head -c 32 && echo
 
 generate-service-gpg-key:
 	GPG_KEY_ID=$$(gpg --passphrase '' --batch --quick-generate-key "$(GPG_KEY_UID)" default default never 2>&1 | grep key | cut -d' ' -f3) && \
-	gpg --export-secret-key "$$GPG_KEY_ID" > secret/gpg_key
+	gpg --export-secret-key "$$GPG_KEY_ID" > $(GPG_KEY_FILE)
 
 decrypt:: encryptable
 	for i in $(ENCRYPTABLE); do \
