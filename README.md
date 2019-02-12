@@ -70,9 +70,9 @@ These are targets to facilitate some EKS operations:
 
 The following variables are used here:
 
-|Variable name|Description|
-|-|-|
-|`TERRAFORM_DIR`|Relative path of your EKS terraform directory|
+|Variable name|Default|Description|
+|-|-|-|
+|`TERRAFORM_DIR`|none|Relative path of your EKS terraform directory|
 
 #### [Helm](42-helm.mk)
 
@@ -87,10 +87,10 @@ The following variables are used here:
 
 The following variables are used here:
 
-|Variable name|Description|
-|-|-|
-|`RELEASE_NAME`|Name of the release|
-|`VALUES_FILE`|Which YAML of values to use|
+|Variable name|Default|Description|
+|-|-|-|
+|`RELEASE_NAME`|none|Name of the release|
+|`VALUES_FILE`|none|Which YAML of values to use|
 
 ### Crypto Includes
 
@@ -103,22 +103,46 @@ Facilitates Ansible Vault operations, takes care of the passphrase management.
 |`make vault_encrypt`|`VAULT_VARS_FILE`, `VAULT_PASSWORD_FILE`|Yes|Encrypts `VAULT_VARS_FILE` with passphrase in the file `VAULT_PASSWORD_FILE` (which should be encrypted with the [GnuPG](#gnupg) targets)|
 |`make vault_decrypt`|`VAULT_VARS_FILE`, `VAULT_PASSWORD_FILE`|Yes|Decrypts as above|
 
+**Each of the above operations cleans up after itself:** after `make vault_encrypt` you'll only have the encrypted file (`${VAULT_VARS_FILE}.enc`), whereas after a `make vault_decrypted` - only the plaintext version. This is to ensure that changes are committed properly.
+
 The following variables are used here:
 
-|Variable name|Description|
-|-|-|
-|`VAULT_VARS_FILE`|The file you want encrypted|
-|`VAULT_PASSWORD_FILE`|The file containing the vault password|
+|Variable name|Default|Description|
+|-|-|-|
+|`VAULT_VARS_FILE`|`inventory/group_vars/all`|The file you want encrypted|
+|`VAULT_PASSWORD_FILE`|`secret/vault_password`|The file containing the vault password|
 
 **Ideally**, you'd set `ENCRYPTABLE=$(VAULT_PASSWORD_FILE)` in your local makefile and keep it encrypted with the [GnuPG](#gnupg) targets.
 
 #### [SSH](92-ssh.mk)
 
-TODO
+Just one target in this include: `make generate-ssh-key` will generate an RSA SSH key using `SSH_KEY_FILE` and `SSH_KEY_COMMENT` variables.
+
+**Ideally**, you'd set `ENCRYPTABLE=$(SSH_KEY_FILE)` in your local makefile and keep it encrypted with the [GnuPG](#gnupg) targets.
 
 #### [GnuPG](93-gpg.mk)
 
-TODO
+Wraps GnuPG operations, allows for safely storing secrets in `git`.
+
+|Command|Required Variables|End User target?|Purpose|
+|-|-|-|-|
+|`make generate-secret`|`CRYPTO_CHARS`, `CRYPTO_LENGTH`|Yes|Generates a secret using allowed `CRYPTO_CHARS` of length `CRYPTO_LENGTH`|
+|`make generate-service-gpg-key`|`GPG_KEY_FILE`, `GPG_KEY_UID`|Yes|Generates a service GPG key (can be used for CI systems) with description of `GPG_KEY_UID` and exports to `GPG_KEY_FILE`|
+|`make encrypt`|`ENCRYPTABLE`, `RECIPIENTS`|Yes|Iterates over list of files `ENCRYPTABLE`, encrypting all of them to public keys of `RECIPIENTS`|
+|`make decrypt`|`ENCRYPTABLE`|Yes|Iterates over list of files `ENCRYPTABLE`, decrypting all of them|
+|`make reencrypt`|None|Yes|Find all files `*.asc` (all encrypted files in the directory), encrypt them anew. Useful for key leaks|
+|`make encryptable`|None|No|Checks that `ENCRYPTABLE` variable is set|
+
+The following variables are used here:
+
+|Variable name|Default|Description|
+|-|-|-|
+|`CRYPTO_CHARS`|`A-Za-z0-9-_`|A list of allowed characters to be used in `make generate-secret`|
+|`CRYPTO_LENGTH`|`32`|Length of secret generated with `make generate-secret`|
+|`GPG_KEY_FILE`|`secret/gpg_key`|Where to export your generated gpg key (`make generate-service-gpg-key`)|
+|`GPG_KEY_UID`|none|Description of generated gpg key in `make generate-service-gpg-key`|
+|`ENCRYPTABLE`|none|List of files (space separated) to be targeted with GPG make targets|
+|`RECIPIENTS`|none|List of emails/UIDs of public keys to encrypt secrets to|
 
 ## Licensing
 
