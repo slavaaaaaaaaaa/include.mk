@@ -1,6 +1,6 @@
 TERRAFORM_DIR?=
 
-.PHONY: dashboard token kubeconfig
+.PHONY: dashboard token kubeconfig kubeconfig-eks
 
 dashboard: token
 	kubectl proxy &
@@ -16,3 +16,7 @@ kubeconfig:
 	cp ~/.kube/config $(BACKUP) || mkdir -p ~/.kube
 	$(MAKE) -C $(TERRAFORM_DIR) kubeconfig-eks
 	KUBECONFIG=$(BACKUP):$(TERRAFORM_DIR)/kubeconfig kubectl config view --flatten > ~/.kube/config
+
+kubeconfig-eks:
+	terraform init
+	terraform output kubeconfig > kubeconfig

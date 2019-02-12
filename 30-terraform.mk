@@ -1,8 +1,4 @@
-.PHONY: outputs kubeconfig-eks
+.PHONY: outputs
 
 outputs:
 	terraform output
-
-kubeconfig-eks:
-	terraform init
-	terraform output kubeconfig > kubeconfig
