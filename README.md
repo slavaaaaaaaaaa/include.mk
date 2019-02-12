@@ -99,7 +99,7 @@ The following variables are used here:
 Facilitates Ansible Vault operations, takes care of the passphrase management.
 
 |Command|Required Variables|End User target?|Purpose|
-|-|-|-|
+|-|-|-|-|
 |`make vault_encrypt`|`VAULT_VARS_FILE`, `VAULT_PASSWORD_FILE`|Yes|Encrypts `VAULT_VARS_FILE` with passphrase in the file `VAULT_PASSWORD_FILE` (which should be encrypted with the [GnuPG](#gnupg) targets)|
 |`make vault_decrypt`|`VAULT_VARS_FILE`, `VAULT_PASSWORD_FILE`|Yes|Decrypts as above|
 
