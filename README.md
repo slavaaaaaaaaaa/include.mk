@@ -82,10 +82,10 @@ The following variables are used here:
 
 |Command|Required Variables|End User target?|Purpose|
 |-|-|-|-|
-|`make install`|`RELEASE_NAME`, `VALUES_FILE`|Yes|Installs the specified release|
-|`make upgrade`|`RELEASE_NAME`, `VALUES_FILE`|Yes|Upgrades an existing release|
-|`make delete`|`RELEASE_NAME`|Yes|Deletes an existing release|
-|`make status`|`RELEASE_NAME`|Yes|Displays status of an existing release|
+|`make helm-install`|`RELEASE_NAME`, `VALUES_FILE`|Yes|Installs the specified release|
+|`make helm-upgrade`|`RELEASE_NAME`, `VALUES_FILE`|Yes|Upgrades an existing release|
+|`make helm-delete`|`RELEASE_NAME`|Yes|Deletes an existing release|
+|`make helm-status`|`RELEASE_NAME`|Yes|Displays status of an existing release|
 
 The following variables are used here:
 
