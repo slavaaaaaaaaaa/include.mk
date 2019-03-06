@@ -10,6 +10,11 @@ define RECIPIENTS
 
 endef
 
+define n
+
+
+endef
+
 .PHONY: generate-secret generate-service-gpg-key decrypt encrypt reencrypt encryptable
 
 generate-secret:
