@@ -1,6 +1,6 @@
 .PHONY: toc
 
-MARKDOWN_FILE?=README.md
+TOC_TARGET?=README.md
 
 toc:
-	markdown-toc --prepend'' --indent "    " -i $(MARKDOWN_FILE)
+	markdown-toc --prepend'' --indent "    " -i $(TOC_TARGET)
