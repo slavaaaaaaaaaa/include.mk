@@ -23,9 +23,12 @@ This is a collection of `make` includes I've put together.
 
 ## Usage
 
-An example [`Makefile`](Makefile) shows how to include this repository dynamically in your own. Variables are to be overridden outside of `include.mk`; targets can also be overridden _or_ added to (e.g. `encrypt::` will add to the currently defined target).
+Add the following to your Makefile:
 
-Of course, you'll need to change the `GITROOT` variable in your `Makefile`s: it'll likely be the same as the example, but without the trailing `../`.
+```
+GITROOT=$(shell git rev-parse --show-toplevel)/
+include $(shell test -d $(GITROOT)/include.mk/ || (git clone git@github.com:slavaaaaaaaaaa/include.mk.git) && echo $(GITROOT))/include.mk/*.mk
+```
 
 Feel free to either remove `.git` directory in the acquired `include.mk` or add it as a submodule and follow along for additions and fixes.
 
@@ -57,7 +60,7 @@ Has a single target: `make gproject` simply checks whether `GOOGLE_PROJECT` vari
 
 ### [Kubernetes](40-kubernetes.mk)
 
-Has a single target: `make apply` will `kubectl apply -f ...` all `*.yaml` files in the directory. **It ignores** `*.yml` and doesn't simply apply `./`: it was a workaround for some subpar procedures at the time.
+Has a single target: `make apply-k8s` will `kubectl apply -f ...` all `*.yaml` files in the directory. **It ignores** `*.yml` and doesn't simply apply `./`: it was a workaround for some subpar procedures at the time.
 
 #### [EKS](41-eks.mk)
 
